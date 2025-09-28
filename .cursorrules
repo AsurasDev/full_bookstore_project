@@ -1,0 +1,167 @@
+# Cursor Rules for Full Bookstore Project
+
+## Project Overview
+This is a full-stack e-commerce bookstore built with:
+- **Backend**: Medusa.js v2.9.0 (Node.js/TypeScript)
+- **Frontend**: Next.js 15 with React 19 RC (Storefront)
+- **Database**: PostgreSQL with MikroORM
+- **Styling**: Tailwind CSS with Medusa UI components
+- **Custom Plugins**: Wishlist functionality
+
+## Code Style & Standards
+
+### TypeScript
+- Use strict TypeScript configuration
+- Prefer explicit type annotations for function parameters and return types
+- Use interfaces for object shapes, types for unions/primitives
+- Follow naming conventions: PascalCase for types/interfaces, camelCase for variables/functions
+- Use generic types appropriately and avoid `any`
+
+### React/Next.js (Frontend)
+- Use React 19 RC features appropriately
+- Prefer functional components with hooks
+- Use Next.js App Router (not Pages Router)
+- Implement proper error boundaries and loading states
+- Use server components by default, client components only when necessary
+- Follow Next.js 15 conventions for routing and data fetching
+
+### Medusa.js (Backend)
+- Follow Medusa v2 patterns and conventions
+- Use dependency injection with Awilix properly
+- Implement proper error handling with Medusa error classes
+- Use MikroORM entities and repositories correctly
+- Follow Medusa plugin development patterns
+- Use proper middleware and workflow patterns
+
+### File Organization
+```
+bookstore-medusa/           # Backend API
+├── src/
+│   ├── api/               # API routes
+│   ├── workflows/         # Business logic workflows
+│   ├── modules/           # Custom modules
+│   ├── subscribers/       # Event subscribers
+│   └── scripts/           # Utility scripts
+bookstore-medusa-storefront/ # Frontend
+├── src/
+│   ├── app/               # Next.js App Router
+│   ├── components/        # Reusable components
+│   ├── lib/               # Utilities and configurations
+│   └── styles/            # Global styles
+medusa-plugin-wishlist/     # Custom plugin
+```
+
+## Development Guidelines
+
+### Database & ORM
+- Use MikroORM migrations for schema changes
+- Implement proper entity relationships
+- Use repository pattern for data access
+- Handle database transactions appropriately
+- Follow PostgreSQL best practices
+
+### API Design
+- Follow RESTful conventions
+- Implement proper HTTP status codes
+- Use consistent error response formats
+- Implement proper validation using Zod or similar
+- Document API endpoints with clear descriptions
+
+### Frontend Development
+- Use Medusa UI components when available
+- Implement responsive design with Tailwind CSS
+- Handle loading states and error conditions gracefully
+- Use proper form validation and submission handling
+- Implement proper SEO with Next.js metadata API
+
+### Performance
+- Implement proper caching strategies (Redis, Next.js cache)
+- Use database indexes appropriately
+- Optimize images with Next.js Image component
+- Implement lazy loading where appropriate
+- Monitor and optimize bundle sizes
+
+### Security
+- Implement proper authentication and authorization
+- Validate all inputs on both client and server
+- Use environment variables for sensitive configuration
+- Implement proper CORS policies
+- Follow security best practices for e-commerce
+
+## Testing
+- Write unit tests for business logic
+- Implement integration tests for API endpoints
+- Use proper mocking for external dependencies
+- Test error conditions and edge cases
+- Maintain good test coverage
+
+## Dependencies Management
+- Use exact versions for critical dependencies
+- Keep dependencies up to date with security patches
+- Document any custom dependency resolutions
+- Use appropriate package managers (npm/yarn) consistently
+
+## Environment Configuration
+- Use proper environment variable naming
+- Implement different configs for dev/staging/production
+- Document all required environment variables
+- Use proper secrets management
+
+## Error Handling
+- Implement comprehensive error logging
+- Use appropriate error types (MedusaError, etc.)
+- Provide meaningful error messages to users
+- Handle async errors properly
+- Implement proper error boundaries in React
+
+## Code Quality
+- Use ESLint and Prettier configurations
+- Implement pre-commit hooks
+- Follow consistent naming conventions
+- Write clear, self-documenting code
+- Add comments for complex business logic
+
+## Git Workflow
+- Use meaningful commit messages
+- Create feature branches for new development
+- Implement proper code review process
+- Use conventional commit format when possible
+
+## Documentation
+- Document API endpoints and their usage
+- Maintain README files for each component
+- Document environment setup and deployment
+- Keep plugin documentation up to date
+
+## Specific to This Project
+- Wishlist plugin should follow Medusa plugin patterns
+- Integrate wishlist functionality properly with storefront
+- Handle book-specific metadata (ISBN, authors, genres, etc.)
+- Implement proper inventory management for books
+- Consider book-specific features (reviews, recommendations, etc.)
+
+## When Making Changes
+1. Always consider backward compatibility
+2. Update relevant tests when modifying functionality
+3. Check both backend and frontend impact
+4. Verify database migration compatibility
+5. Test plugin integration after changes
+6. Update documentation when adding new features
+
+Remember: This is an e-commerce platform, so prioritize data integrity, security, and user experience in all implementations.
+
+## Documentation Reference
+- **ALWAYS consult `doc-medusa.txt`** in the project root for official Medusa.js documentation
+- This file contains the complete Medusa v2 documentation and should be referenced for:
+  - API endpoints and usage patterns
+  - Workflow implementations
+  - Entity relationships and database schemas
+  - Plugin development guidelines
+  - Best practices and examples
+- When implementing Medusa features, search the documentation first before making assumptions
+
+## When Create Make File
+1. Avoid implement othrer no request changes
+2. Avoid use of color and emoticons
+3. Avoid comments y prompts only code
+

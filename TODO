@@ -1,0 +1,3 @@
+
+✅ COMPLETADO: Crear comando para crear public key que permita lanzar el frontend usando el usuario creado y el api del backend, usa la documentacion para que veas como se obtiene el token del usuario y luego la public key, seteala como variable de entorno y ejecuta con esto el backend
+✅ COMPLETADO (con problemas): Crea un comando que lance el frontend, incluyendo su instalación y build - PROBLEMA: Error 500 por incompatibilidad SWC en Docker 
