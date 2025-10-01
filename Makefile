@@ -26,7 +26,7 @@ stop:
 	@cd $(BACKEND_DIR) && docker compose -f docker-compose-e2e.yml down
 	@echo "Services stopped"
 
-create-user:
+create-user: backend
 	@if [ ! -d "$(BACKEND_DIR)" ]; then \
 		echo "Error: Backend directory not found"; \
 		exit 1; \
@@ -36,7 +36,7 @@ create-user:
 		(echo "User may already exist or services not ready" && exit 0)
 	@echo "Admin user ready"
 
-create-api-key:
+create-api-key: create-user
 	@if [ ! -d "$(BACKEND_DIR)" ]; then \
 		echo "Error: Backend directory not found"; \
 		exit 1; \
@@ -77,7 +77,7 @@ create-api-key:
 		-d "{\"add\":[\"$$SALES_CHANNEL_ID\"]}" > /dev/null; \
 	echo "Generating .env.local from template..."; \
 	cp $(STOREFRONT_DIR)/.env.template $(STOREFRONT_DIR)/.env.local; \
-	sed -i 's|MEDUSA_BACKEND_URL=.*|MEDUSA_BACKEND_URL=http://localhost:9000|g' $(STOREFRONT_DIR)/.env.local; \
+	sed -i 's|MEDUSA_BACKEND_URL=.*|MEDUSA_BACKEND_URL=http://medusa:9000|g' $(STOREFRONT_DIR)/.env.local; \
 	sed -i 's|NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY=.*|NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY='$$API_KEY'|g' $(STOREFRONT_DIR)/.env.local; \
 	echo "API key created, associated with sales channel, and .env.local generated from template"
 
@@ -101,3 +101,11 @@ stop-frontend:
 	fi
 	@cd $(STOREFRONT_DIR) && docker compose down
 	@echo "Storefront stopped"
+
+e2e: stop backend create-user create-api-key stop-frontend frontend
+	@echo "E2E environment is up and running!"
+	@echo "Backend: http://localhost:9000"
+	@echo "Storefront: http://localhost:8000"
+	@echo "Admin User: $(ADMIN_EMAIL) / $(ADMIN_PASSWORD)"
+	@echo "\n--- Following storefront logs (Ctrl+C to stop) ---"
+	@docker logs -f medusa_storefront
